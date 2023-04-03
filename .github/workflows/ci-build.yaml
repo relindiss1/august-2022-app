@@ -5,13 +5,13 @@ on:
     - master
     - main
     paths:
-    - terraform/**
+    - app/**
   pull_request:
     branches:
     - master
     - main
     paths:
-    - terraform/**
+    - app/**
 
 env:
   app: august-2022-app
