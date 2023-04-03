@@ -4,10 +4,14 @@ on:
     branches:
     - master
     - main
+    paths:
+    - terraform/**
   pull_request:
     branches:
     - master
     - main
+    paths:
+    - terraform/**
 
 env:
   app: august-2022-app
