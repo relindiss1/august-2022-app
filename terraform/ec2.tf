@@ -5,4 +5,3 @@ resource "aws_instance" "test_instance" {
     Name = "test_instance"
   }
 }
-//ec2
