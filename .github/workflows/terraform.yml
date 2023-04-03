@@ -1,11 +1,11 @@
 name: "TFE Infrastructure workflow"
  
 on:
-#  push:
-#    branches:
-#    - main
-#    paths:
-#    - terraform/**
+ push:
+   branches:
+   - main
+   paths:
+   - terraform/**
  pull_request:
    branches:
    - main
@@ -62,5 +62,4 @@ jobs:
        run: exit 1
  
      - name: Terraform Apply
-       if: contains(github.event.comment.body, '/terraform-apply')
        run: terraform apply -auto-approve -input=false
