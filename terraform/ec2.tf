@@ -5,6 +5,7 @@ resource "aws_instance" "docker" {
   associate_public_ip_address = true
   key_name                    = "docker-demo"
   vpc_security_group_ids      = [aws_security_group.docker.id]
+  subnet_id                   = aws_subnet.demo_public-1.id
 
   tags = {
     Name = "docker-${count.index}"
