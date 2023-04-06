@@ -1,10 +1,10 @@
 resource "aws_instance" "docker" {
-  ami           = "ami-06e46074ae430fba6"
-  count         = 2
-  instance_type = "t2.micro"
+  ami                         = "ami-06e46074ae430fba6"
+  count                       = 2
+  instance_type               = "t2.micro"
   associate_public_ip_address = true
-  key_name      = "docker-demo"
-  vpc_security_group_ids = [aws_security_group.docker.id]
+  key_name                    = "docker-demo"
+  vpc_security_group_ids      = [aws_security_group.docker.id]
 
   tags = {
     Name = "docker-${count.index}"
