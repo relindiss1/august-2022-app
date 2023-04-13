@@ -15,7 +15,6 @@ on:
 
 env:
   image: august-2022-app
-  tag: v1
   username: bmukum
 
 jobs:
@@ -27,7 +26,7 @@ jobs:
     
     - name: Build the docker images
       run: |
-        docker build -t ${{ env.username }}/${{ env.image }}:${{env.tag }} ./app
+        docker build -t ${{ env.username }}/${{ env.image }}:v${{ env.GITHUB_RUN_NUMBER }} ./app
       
     - name: Login to dockerhub
       run: docker login -u ${{ env.username }} -p ${{ secrets.DOCKERHUB_PW }}
@@ -35,4 +34,4 @@ jobs:
     - name: Push docker image to dockerhub
       if: github.ref == 'refs/heads/main'
       run: |
-        docker push ${{ env.username }}/${{ env.image }}:${{env.tag }}
+        docker push ${{ env.username }}/${{ env.image }}:v${{ env.GITHUB_RUN_NUMBER }}

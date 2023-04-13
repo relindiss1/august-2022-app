@@ -1,1 +1,1 @@
-# Application source code
+# Application source code.
