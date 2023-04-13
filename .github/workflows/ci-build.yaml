@@ -14,36 +14,25 @@ on:
     - app/**
 
 env:
-  app: august-2022-app
+  image: august-2022-app
   tag: v1
+  username: bmukum
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
-    - name: Build the app
-      id: compile
-      run: mvn compile
-      
-    - name: Test the app
-      id: test
-      run: mvn package
-      
-    - name: Package the app
-      id: package
-      run: mvn package
-    
-    - name: Build docker image
-      id: docker
+    - name: Build the docker images
       run: |
-        docker build -t ${{ env.app }}:${{ env.tag }} .
-        
-    - name: Build docker image
-      id: docker
-      if: github.ref == 'refs/heads/master'
+        docker build -t ${{ env.username }}/${{ env.image }}:${{env.tag }} ./app
+      
+    - name: Login to dockerhub
+      run: docker login -u ${{ env.username }} -p ${{ secrets.DOCKERHUB_PW }}
+      
+    - name: Push docker image to dockerhub
+      if: github.ref == 'refs/heads/main'
       run: |
-        docker build -t ${{ env.app }}:${{ env.tag }} .
-        docker push $ECR-REGISTRY:${{ env.app}}
+        docker push ${{ env.username }}/${{ env.image }}:${{env.tag }}
