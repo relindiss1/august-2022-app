@@ -43,9 +43,10 @@ jobs:
 
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
+      working-directory: ./app
       uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       with:
-        args: patch deployment ${{ env.image}} --patch-file ./app/patch-file.yaml
+        args: patch deployment ${{ env.image}} --patch-file patch-file.yaml
 
