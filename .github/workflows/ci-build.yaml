@@ -39,7 +39,7 @@ jobs:
     - name: Populate patch file
       if: github.ref == 'refs/heads/main'
       run: |
-        sed -i 's/version/v$GITHUB_RUN_NUMBER/g' patch-file.yaml
+        sed -i 's/version/v$GITHUB_RUN_NUMBER/g' ./app/patch-file.yaml
 
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
