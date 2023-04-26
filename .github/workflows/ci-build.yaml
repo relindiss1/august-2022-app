@@ -41,20 +41,11 @@ jobs:
       run: |
         docker push ${{ env.username }}/${{ env.image }}:v$GITHUB_RUN_NUMBER
 
-    - name: Populate patch file
-      if: github.ref == 'refs/heads/main'
-      run: |
-        sed -i 's/version/v$GITHUB_RUN_NUMBER/g' patch-file.yaml
-        cat patch-file.yaml
-
-    - name: run ls
-      run: ls -l
-
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
       uses: actions-hub/kubectl@1.14.3
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       with:
-        args: patch deployment ${{ env.image}} --patch-file patch-file.yaml
+        args: set image deployment/${{ env.image }} ${{ env.image }}=${{ env.image }}:$GITHUB_RUN_NUMBER
 
