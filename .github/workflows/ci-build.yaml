@@ -43,9 +43,11 @@ jobs:
 
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
-      uses: actions-hub/kubectl@master
-      env:
-        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      uses: tale/kubectl-action@v1
       with:
-        args: set image deployment/${{ env.image }} ${{ env.image }}=${{ env.image }}:$GITHUB_RUN_NUMBER
+        base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+        kubectl-version: v1.23.0
+    - name: update the app
+      if: github.ref == 'refs/heads/main'
+      run: kubectl set image deployment/${{ env.image }} ${{ env.image }}=${{ env.image }}:v$GITHUB_RUN_NUMBER
 
