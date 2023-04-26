@@ -20,13 +20,18 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+         shell: bash
+         working-directory: ./app
+
     
     steps:
     - uses: actions/checkout@v3
     
     - name: Build the docker images
       run: |
-        docker build -t ${{ env.username }}/${{ env.image }}:v$GITHUB_RUN_NUMBER ./app
+        docker build -t ${{ env.username }}/${{ env.image }}:v$GITHUB_RUN_NUMBER .
       
     - name: Login to dockerhub
       run: docker login -u ${{ env.username }} -p ${{ secrets.DOCKERHUB_PW }}
@@ -39,12 +44,11 @@ jobs:
     - name: Populate patch file
       if: github.ref == 'refs/heads/main'
       run: |
-        sed -i 's/version/v$GITHUB_RUN_NUMBER/g' ./app/patch-file.yaml
-        cat ./app/patch-file.yaml
+        sed -i 's/version/v$GITHUB_RUN_NUMBER/g' patch-file.yaml
+        cat patch-file.yaml
 
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
-      working-directory: ./app
       uses: actions-hub/kubectl@master
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
