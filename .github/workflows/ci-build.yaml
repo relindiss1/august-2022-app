@@ -47,5 +47,5 @@ jobs:
       env:
         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       with:
-        args: patch deployment ${{ env.image}} --patch-file patch-file.yaml
+        args: patch deployment ${{ env.image}} --patch-file ./app/patch-file.yaml
 
