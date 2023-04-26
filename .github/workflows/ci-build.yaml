@@ -41,6 +41,13 @@ jobs:
       run: |
         docker push ${{ env.username }}/${{ env.image }}:v$GITHUB_RUN_NUMBER
 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: us-east-1
+
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
       uses: tale/kubectl-action@v1
