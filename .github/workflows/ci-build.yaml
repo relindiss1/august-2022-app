@@ -41,7 +41,7 @@ jobs:
       run: |
         sed -i 's/newImage/${{ env.username }}/${{ env.image }}:v$GITHUB_RUN_NUMBER/g' patch-file.yaml
         cat patch-file.yaml
-
+        
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
       - uses: actions-hub/kubectl@v1
