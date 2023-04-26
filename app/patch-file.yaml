@@ -5,3 +5,4 @@ spec:
       - name: august-2022-app
         image: bmukum/august-2022-app:version
 #
+#

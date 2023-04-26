@@ -47,6 +47,9 @@ jobs:
         sed -i 's/version/v$GITHUB_RUN_NUMBER/g' patch-file.yaml
         cat patch-file.yaml
 
+    - name: run ls
+      run: ls -l
+
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
       uses: actions-hub/kubectl@master
