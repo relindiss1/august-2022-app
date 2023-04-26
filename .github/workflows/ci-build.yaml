@@ -56,5 +56,5 @@ jobs:
         kubectl-version: v1.23.0
     - name: update the app
       if: github.ref == 'refs/heads/main'
-      run: kubectl set image deployment/${{ env.image }} ${{ env.image }}=${{ env.image }}:v$GITHUB_RUN_NUMBER
+      run: kubectl set image deployment/${{ env.image }} ${{ env.image }}=${{env.username}}$/{{ env.image }}:v$GITHUB_RUN_NUMBER
 
