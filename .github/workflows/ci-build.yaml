@@ -40,6 +40,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       run: |
         sed -i 's/version/v$GITHUB_RUN_NUMBER/g' ./app/patch-file.yaml
+        cat ./app/patch-file.yaml
 
     - name: Setup kubectl
       if: github.ref == 'refs/heads/main'
