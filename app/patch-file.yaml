@@ -4,3 +4,4 @@ spec:
       containers:
       - name: august-2022-app
         image: newImage
+#
