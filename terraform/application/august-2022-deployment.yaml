@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: august-2022-app
+  labels:
+    app: august-2022-app
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: august-2022-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: august-2022-app
+    spec:
+      containers:
+      - image: bmukum/august-2022-app:v15
+        imagePullPolicy: Always
+        name: august-2022-app
+        ports:
+        - containerPort: 3000
+          protocol: TCP
